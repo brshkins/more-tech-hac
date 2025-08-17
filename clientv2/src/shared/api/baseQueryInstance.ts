@@ -1,7 +1,4 @@
-import {
-  deleteAccessToken,
-  getAccessToken,
-} from "@/entities/token/libs/tokenService";
+import { deleteAccessToken, getAccessToken } from "@/entities";
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,

@@ -4,8 +4,15 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { lazy } from "react";
 import AuthPage from "./(auth)/authPage";
 import { ERouteNames } from "@/shared";
+import { vacancyDetailAction } from "@/entities/vacancy/actions/vacancyDetailAction";
+import { voiceRedirectAction } from "@/entities/voice/actions/voiceRedirectAction";
+import { voiceDetailAction } from "@/entities/voice/actions/voiceDetailAction";
 
 const DashboardPage = lazy(() => import("@/pages/(main)/dashboardPage"));
+const ChatPage = lazy(() => import("@/pages/(main)/voiceAssistantPage"));
+const StatisticsPage = lazy(() => import("@/pages/(main)/statisticsPage"));
+const AdminPage = lazy(() => import("@/pages/(admin)/adminPage"));
+const VacancyPage = lazy(() => import("@/pages/(main)/vacancyPage"));
 
 const RegisterPage = lazy(() => import("@/pages/(auth)/registerPage"));
 const LoginPage = lazy(() => import("@/pages/(auth)/loginPage"));
@@ -26,7 +33,39 @@ export const routes = createBrowserRouter([
           },
           {
             path: ERouteNames.DASHBOARD_ROUTE,
-            element: <DashboardPage />,
+            element: <Outlet />,
+            children: [
+              {
+                path: ERouteNames.EMPTY_ROUTE,
+                element: <DashboardPage />,
+              },
+              {
+                path: ERouteNames.VACANCY_DETAIL_ROUTE,
+                element: <Navigate to={ERouteNames.DASHBOARD_ROUTE} replace />,
+              },
+              {
+                path: ERouteNames.VACANCY_ROUTE,
+                loader: vacancyDetailAction,
+                element: <VacancyPage />,
+              },
+              {
+                path: ERouteNames.VOICE_ROUTE,
+                loader: voiceRedirectAction,
+              },
+              {
+                path: ERouteNames.VOICE_DETAIL_ROUTE,
+                loader: voiceDetailAction,
+                element: <ChatPage />,
+              },
+              {
+                path: ERouteNames.STATISTICS_ROUTE,
+                element: <StatisticsPage />,
+              },
+            ],
+          },
+          {
+            path: ERouteNames.DASHBOARD_ADMIN_ROUTE,
+            element: <AdminPage />,
           },
         ],
       },

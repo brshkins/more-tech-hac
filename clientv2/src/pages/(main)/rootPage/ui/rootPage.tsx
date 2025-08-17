@@ -1,3 +1,4 @@
+import { Image } from "@/shared/ui";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -6,12 +7,16 @@ const RootPage = () => {
     <Suspense
       fallback={
         <div className="h-screen w-full flex items-center justify-center">
-          Loading...
+          <Image
+            alt="logo-suspese"
+            src="/images/logo.jpg"
+            className="w-6 h-6 rounded-sm animate-ping"
+          />
         </div>
       }
     >
-      <div className="h-screen py-5 px-4 md:px-8 relative">
-        <main className="w-full h-full py-3">
+      <div className="h-screen relative">
+        <main className="w-full h-full p-4">
           <Outlet />
         </main>
       </div>
