@@ -1,14 +1,54 @@
-export const VoiceAssistantBubble: React.FC<{
-  text: string;
-  time: string;
-}> = ({ text, time }) => {
+import { Message } from "@/entities/message/types/types";
+import { cn } from "@/shared/lib/utils/twMerge";
+import { useState } from "react";
+import { VoiceAssistantBubbleDetail } from "./voiceAssistantBubbleDetail";
+
+interface VoiceAssistantBubbleProps {
+  message: Message;
+}
+
+export const VoiceAssistantBubble = ({
+  message: { created_at, from_user, text, detail },
+}: VoiceAssistantBubbleProps) => {
+  const isUser = !!from_user;
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <div className="mb-3 w-full">
-      <div className="max-w-[90%] rounded-2xl bg-zinc-900 px-4 py-3 shadow-sm ring-1 ring-white/5">
-        <p className="text-[13px] leading-[18px] text-zinc-100">{text}</p>
-        <div className="mt-2 flex justify-end">
-          <span className="text-[11px] text-zinc-500">{time}</span>
+    <div
+      className={cn("w-full flex", isUser ? "justify-end" : "justify-start")}
+    >
+      <div
+        className={cn(
+          "max-w-[95%] w-full rounded-t-2xl",
+          isUser ? "rounded-bl-2xl bg-blue-600" : "rounded-br-2xl bg-zinc-900",
+          "px-4 py-3 shadow-sm ring-1 ring-white/5"
+        )}
+      >
+        <p
+          className={cn(
+            "text-sm leading-[18px]",
+            isUser ? "text-white" : "text-zinc-100"
+          )}
+        >
+          {text}
+        </p>
+
+        <div className="mt-2 flex items-center justify-between">
+          <span className={cn("text-xs text-zinc-500", isUser && "text-white")}>
+            {created_at}
+          </span>
+
+          {!isUser && detail && (
+            <button
+              className="text-white text-xs cursor-pointer"
+              onClick={() => setExpanded((prev) => !prev)}
+            >
+              {expanded ? "Скрыть" : "Уточнить"}
+            </button>
+          )}
         </div>
+
+        <VoiceAssistantBubbleDetail detail={detail} expanded={expanded} />
       </div>
     </div>
   );

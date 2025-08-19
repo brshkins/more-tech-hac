@@ -3,12 +3,14 @@ import { useMotionValue, useTransform, PanInfo } from "framer-motion";
 
 interface UseDragControlProps {
   isRecording: boolean;
-  startRecording: () => Promise<void>;
+  startRecording: () => void;
+  finished?: boolean;
 }
-type DragStepState = "idle" | "recording";
+type DragStepState = "idle" | "recording" | "finished";
 
 export const useDragControl = ({
   isRecording,
+  finished,
   startRecording,
 }: UseDragControlProps) => {
   const [dragStep, setDragStep] = useState<DragStepState>("idle");
@@ -47,14 +49,17 @@ export const useDragControl = ({
   }, []);
 
   useEffect(() => {
-    if (!isRecording) {
+    if (finished) {
+      setDragStep("finished");
+      x.set(maxDragPx);
+    } else if (!isRecording) {
       setDragStep("idle");
       x.set(0);
     } else {
       setDragStep("recording");
       x.set(maxDragPx);
     }
-  }, [isRecording, x, maxDragPx]);
+  }, [isRecording, finished, x, maxDragPx]);
 
   const handleDragStart = () => setIsDragging(true);
 

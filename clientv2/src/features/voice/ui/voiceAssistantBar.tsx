@@ -20,8 +20,14 @@ import { useDragControl } from "../hooks/useDragVoiceControl";
  * Для drag-логики используется framer-motion (drag="x") и замер ширины контейнера,
  * чтобы корректно вычислять порог срабатывания (threshold).
  */
-
-export const VoiceAssistantBar: React.FC = () => {
+interface VoiceAssistantBarProps {
+  onStopRecording: (transcript: string) => void;
+  finished?: boolean;
+}
+export const VoiceAssistantBar: React.FC<VoiceAssistantBarProps> = ({
+  finished,
+  onStopRecording,
+}) => {
   const {
     isRecording,
     isPaused,
@@ -41,7 +47,14 @@ export const VoiceAssistantBar: React.FC = () => {
     dragStep,
     handleDragStart,
     handleDragEnd,
-  } = useDragControl({ isRecording, startRecording });
+  } = useDragControl({ isRecording, finished, startRecording });
+
+  const handleStopRecording = () => {
+    stopRecording();
+    onStopRecording(
+      "Да, меня зовут Егор, я Frontend-разработчик с хорошим опытом в области Web."
+    );
+  };
 
   return (
     <div className="pointer-events-auto">
@@ -136,12 +149,37 @@ export const VoiceAssistantBar: React.FC = () => {
                     )}
                   </button>
                   <button
-                    onClick={stopRecording}
+                    onClick={handleStopRecording}
                     className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-blue-700 hover:bg-blue-700/40 transition-colors text-white"
                   >
                     <SendIcon className="h-5 w-5 mr-0.5" />
                   </button>
                 </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {dragStep === "finished" && (
+          <motion.div
+            key="finished"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.22 }}
+            className="grid gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className={cn(
+                  "flex min-w-0 flex-1 items-center justify-center rounded-full py-2 px-3 bg-[#2F5BFF] text-white shadow"
+                )}
+              >
+                <button
+                  onClick={stopRecording}
+                  className="flex h-11 items-center"
+                >
+                  Завершить
+                </button>
               </div>
             </div>
           </motion.div>
