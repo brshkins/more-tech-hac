@@ -13,6 +13,7 @@ const ChatPage = lazy(() => import("@/pages/(main)/voiceAssistantPage"));
 const StatisticsPage = lazy(() => import("@/pages/(main)/statisticsPage"));
 const AdminPage = lazy(() => import("@/pages/(admin)/adminPage"));
 const VacancyPage = lazy(() => import("@/pages/(main)/vacancyPage"));
+const ResultPage = lazy(() => import("@/pages/(main)/resultPage"));
 
 const RegisterPage = lazy(() => import("@/pages/(auth)/registerPage"));
 const LoginPage = lazy(() => import("@/pages/(auth)/loginPage"));
@@ -55,7 +56,18 @@ export const routes = createBrowserRouter([
               {
                 path: ERouteNames.VOICE_DETAIL_ROUTE,
                 loader: voiceDetailAction,
-                element: <ChatPage />,
+                element: <Outlet />,
+                children: [
+                  {
+                    path: ERouteNames.EMPTY_ROUTE,
+                    element: <ChatPage />,
+                  },
+                  {
+                    path: ERouteNames.RESULT_ROUTE,
+                    //повесить экшен который будет проверять что по такому id войса есть результаты если нет отправлять обратно
+                    element: <ResultPage />,
+                  },
+                ],
               },
               {
                 path: ERouteNames.STATISTICS_ROUTE,

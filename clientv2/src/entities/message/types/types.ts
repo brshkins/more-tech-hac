@@ -1,10 +1,10 @@
-export type MessageType = "assistant" | "user" | "system" | "question";
-
+export type MessageType = "user" | "question" | "assistant" | "clarification";
 export interface Message {
   id: string;
   text: string;
-  created_at: string;
   from_user: boolean;
-  type?: MessageType;
-  detail?: string;
+  created_at: string;
+  type: MessageType;
+  clarificationMessages?: Message[];
+  questions?: string[];
 }

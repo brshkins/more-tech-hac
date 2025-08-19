@@ -1,4 +1,3 @@
-import { sendAudioUpload } from "@/entities/voice/api/voiceService";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseComputerVoiceRecorderReturn {
@@ -31,7 +30,7 @@ export const useComputerVoiceRecorder = (opts?: {
 
   const sendAudio = useCallback(async (blob: Blob) => {
     try {
-      await sendAudioUpload({ audioBlob: blob });
+      //await sendAudioUpload({ audioBlob: blob });
       console.log(blob);
     } catch (err) {
       setError("Ошибка при отправке аудио");

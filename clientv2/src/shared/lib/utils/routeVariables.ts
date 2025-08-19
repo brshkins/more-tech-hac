@@ -11,4 +11,5 @@ export const enum ERouteNames {
   AUTH_ROUTE = "auth",
   LOGIN_ROUTE = "login",
   REGISTER_ROUTE = "register",
+  RESULT_ROUTE = "result",
 }

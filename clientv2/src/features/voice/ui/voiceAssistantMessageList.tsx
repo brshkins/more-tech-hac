@@ -4,11 +4,13 @@ import { VoiceAssistantBubble } from "./voiceAssistantBubble";
 interface VoiceAssistantMessageListProps {
   messages: Message[];
   helloMessage: Message;
+  onSendClarification: (questionId: string, text: string) => void;
 }
 
 export const VoiceAssistantMessageList = ({
   messages,
   helloMessage,
+  onSendClarification,
 }: VoiceAssistantMessageListProps) => {
   return (
     <div className="flex-1 overflow-y-auto space-y-4 pb-2">
@@ -16,11 +18,18 @@ export const VoiceAssistantMessageList = ({
         <p className="text-zinc-500 font-medium text-center text-sm">
           Собеседование началось
         </p>
-        <VoiceAssistantBubble message={helloMessage} />
+        <VoiceAssistantBubble
+          onSendClarification={onSendClarification}
+          message={helloMessage}
+        />
       </div>
 
       {messages.map((message) => (
-        <VoiceAssistantBubble key={message.id} message={message} />
+        <VoiceAssistantBubble
+          key={message.id}
+          message={message}
+          onSendClarification={onSendClarification}
+        />
       ))}
     </div>
   );

@@ -5,10 +5,19 @@ import { VoiceAssistantBubbleDetail } from "./voiceAssistantBubbleDetail";
 
 interface VoiceAssistantBubbleProps {
   message: Message;
+  onSendClarification: (questionId: string, text: string) => void;
 }
 
 export const VoiceAssistantBubble = ({
-  message: { created_at, from_user, text, detail },
+  message: {
+    created_at,
+    from_user,
+    text,
+    clarificationMessages,
+    questions,
+    id,
+  },
+  onSendClarification,
 }: VoiceAssistantBubbleProps) => {
   const isUser = !!from_user;
   const [expanded, setExpanded] = useState(false);
@@ -20,7 +29,7 @@ export const VoiceAssistantBubble = ({
       <div
         className={cn(
           "max-w-[95%] w-full rounded-t-2xl",
-          isUser ? "rounded-bl-2xl bg-blue-600" : "rounded-br-2xl bg-zinc-900",
+          isUser ? "rounded-bl-2xl bg-blue-700" : "rounded-br-2xl bg-zinc-900",
           "px-4 py-3 shadow-sm ring-1 ring-white/5"
         )}
       >
@@ -38,7 +47,7 @@ export const VoiceAssistantBubble = ({
             {created_at}
           </span>
 
-          {!isUser && detail && (
+          {!isUser && clarificationMessages && (
             <button
               className="text-white text-xs cursor-pointer"
               onClick={() => setExpanded((prev) => !prev)}
@@ -48,7 +57,15 @@ export const VoiceAssistantBubble = ({
           )}
         </div>
 
-        <VoiceAssistantBubbleDetail detail={detail} expanded={expanded} />
+        {!isUser && clarificationMessages && (
+          <VoiceAssistantBubbleDetail
+            expanded={expanded}
+            clarificationMessages={clarificationMessages}
+            questions={questions || []}
+            questionId={id}
+            onSendClarification={onSendClarification}
+          />
+        )}
       </div>
     </div>
   );

@@ -21,11 +21,13 @@ import { useDragControl } from "../hooks/useDragVoiceControl";
  * чтобы корректно вычислять порог срабатывания (threshold).
  */
 interface VoiceAssistantBarProps {
-  onStopRecording: (transcript: string) => void;
   finished?: boolean;
+  onStopRecording: (transcript: string) => void;
+  onRedirect: () => void;
 }
 export const VoiceAssistantBar: React.FC<VoiceAssistantBarProps> = ({
   finished,
+  onRedirect,
   onStopRecording,
 }) => {
   const {
@@ -175,8 +177,8 @@ export const VoiceAssistantBar: React.FC<VoiceAssistantBarProps> = ({
                 )}
               >
                 <button
-                  onClick={stopRecording}
-                  className="flex h-11 items-center"
+                  className="flex cursor-pointer h-11 items-center"
+                  onClick={onRedirect}
                 >
                   Завершить
                 </button>
