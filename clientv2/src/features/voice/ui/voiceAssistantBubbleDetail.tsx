@@ -1,7 +1,8 @@
 import { Message } from "@/entities/message/types/types";
 import { cn } from "@/shared/lib/utils/twMerge";
+import { Image } from "@/shared/ui";
 import { motion, AnimatePresence } from "framer-motion";
-import { HelpCircle, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 
 interface VoiceAssistantBubbleDetailProps {
@@ -39,24 +40,35 @@ export const VoiceAssistantBubbleDetail = ({
           animate={{ opacity: 1, height: "auto", marginTop: 8 }}
           exit={{ opacity: 0, height: 0, marginTop: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="mt-3 overflow-hidden rounded-xl bg-zinc-800 border border-zinc-700 p-4 text-sm text-zinc-200 shadow-md"
+          className="mt-3 overflow-hidden rounded-3xl bg-zinc-800 border border-zinc-700 p-4 text-sm text-zinc-200 shadow-md"
         >
           <div className="space-y-4">
             {clarificationMessages.map((msg) => (
               <div
                 key={msg.id}
                 className={cn(
-                  "flex items-start gap-3 p-3 rounded-lg",
+                  "flex items-start gap-3 p-4 rounded-3xl",
                   msg.from_user
-                    ? "bg-blue-600 text-white justify-end p-2 px-3 rounded-l-full rounded-br-full ml-auto"
-                    : "bg-zinc-900 text-zinc-200 justify-start mr-auto",
-                  "max-w-[80%]"
+                    ? "bg-blue-600 text-white p-2 px-4 rounded-l-full rounded-br-full ml-auto"
+                    : " bg-zinc-900 text-zinc-200 justify-start mr-auto",
+                  "max-w-[95%]"
                 )}
               >
-                {!msg.from_user && (
-                  <HelpCircle className="h-5 w-5 text-[#2F5BFF] flex-shrink-0 mt-0.5" />
-                )}
-                <p className="leading-relaxed flex-1 break-words">{msg.text}</p>
+                <div
+                  className={cn("flex flex-col", !msg.from_user && "space-y-2")}
+                >
+                  {!msg.from_user && (
+                    <div className="flex items-center space-x-2">
+                      <Image
+                        alt="logo-suspese"
+                        src="/images/logo.jpg"
+                        className="w-6 h-6 rounded-full"
+                      />
+                      <p>AI HR</p>
+                    </div>
+                  )}
+                  <p className="text-xs flex-1 text-start">{msg.text}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -68,7 +80,7 @@ export const VoiceAssistantBubbleDetail = ({
                     {questions.map((question, index) => (
                       <button
                         key={index}
-                        className="w-full flex space-x-2 items-center text-left p-2 bg-zinc-700 cursor-pointer px-3 rounded-bl-full rounded-r-full text-zinc-200 hover:bg-zinc-600 transition-all duration-200"
+                        className="w-full text-xs sm:text-sm flex space-x-2 items-center text-left p-2 bg-zinc-700 cursor-pointer px-3 rounded-bl-full rounded-r-full text-zinc-200 hover:bg-zinc-600 transition-all duration-200"
                         onClick={() => {
                           onSendClarification(questionId, question);
                         }}
@@ -82,7 +94,7 @@ export const VoiceAssistantBubbleDetail = ({
                   </div>
                 )}
                 <button
-                  className="rounded-full cursor-pointer bg-[#2F5BFF] px-4 py-2 text-sm font-medium text-white hover:bg-[#2F5BFF]/80 transition-all duration-200 hover:scale-105"
+                  className="rounded-full cursor-pointer bg-[#2F5BFF] px-4 py-2 text-xs font-medium text-white hover:bg-[#2F5BFF]/80 transition-all duration-200"
                   onClick={() => setIsDialogOpen(true)}
                 >
                   Задать уточняющий вопрос
@@ -91,7 +103,7 @@ export const VoiceAssistantBubbleDetail = ({
             ) : (
               <div className="flex flex-col w-full gap-2">
                 <textarea
-                  className="w-full resize-none p-2 bg-zinc-700 rounded-lg text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#2F5BFF]"
+                  className="w-full resize-none text-xs p-3 bg-zinc-700 rounded-2xl text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#2F5BFF]"
                   value={clarificationText}
                   onChange={(e) => setClarificationText(e.target.value)}
                   placeholder="Введите ваш вопрос..."
@@ -108,7 +120,7 @@ export const VoiceAssistantBubbleDetail = ({
                     Отмена
                   </button>
                   <button
-                    className="rounded-full bg-[#2F5BFF] px-4 py-2 text-xs font-medium text-white hover:bg-[#2F5BFF]/80 transition-all duration-200 hover:scale-105"
+                    className="rounded-full bg-[#2F5BFF] px-4 py-2 text-xs font-medium text-white hover:bg-[#2F5BFF]/80 transition-all duration-200"
                     onClick={handleClarificationSubmit}
                   >
                     Отправить

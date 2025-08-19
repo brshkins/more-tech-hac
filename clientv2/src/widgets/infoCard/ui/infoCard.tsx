@@ -12,7 +12,7 @@ export const InfoCard = ({
   return (
     <div
       onClick={onClick}
-      className="bg-neutral-900 rounded-3xl h-full flex flex-col justify-between p-4 gap-2 cursor-pointer"
+      className="bg-neutral-900 rounded-3xl h-full flex flex-col justify-between p-4 gap-2 cursor-pointer w-full"
     >
       <div className="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center">
         {icon}

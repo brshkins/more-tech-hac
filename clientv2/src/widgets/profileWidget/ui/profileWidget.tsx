@@ -1,8 +1,14 @@
+import { ERouteNames } from "@/shared";
 import { BannerCard } from "@/widgets/bannerCard";
 import { InfoCard } from "@/widgets/infoCard";
 import { UserRound, Award } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileWidget = () => {
+  const navigate = useNavigate();
+
+  const handleToProfile = () => navigate(ERouteNames.PROFILE_ROUTE);
+
   return (
     <section className="flex space-x-2">
       <BannerCard
@@ -21,7 +27,7 @@ export const ProfileWidget = () => {
               Параметры <br /> профиля
             </>
           }
-          onClick={() => {}}
+          onClick={handleToProfile}
         />
         <InfoCard
           icon={<Award className="w-5 h-5 text-gray-300" />}

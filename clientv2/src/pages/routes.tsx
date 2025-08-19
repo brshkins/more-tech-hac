@@ -10,10 +10,11 @@ import { voiceDetailAction } from "@/entities/voice/actions/voiceDetailAction";
 
 const DashboardPage = lazy(() => import("@/pages/(main)/dashboardPage"));
 const ChatPage = lazy(() => import("@/pages/(main)/voiceAssistantPage"));
-const StatisticsPage = lazy(() => import("@/pages/(main)/statisticsPage"));
+const ProfilePage = lazy(() => import("@/pages/(main)/profilePage"));
 const AdminPage = lazy(() => import("@/pages/(admin)/adminPage"));
 const VacancyPage = lazy(() => import("@/pages/(main)/vacancyPage"));
 const ResultPage = lazy(() => import("@/pages/(main)/resultPage"));
+const InterviewsPage = lazy(() => import("@/pages/(main)/interviewsPage"));
 
 const RegisterPage = lazy(() => import("@/pages/(auth)/registerPage"));
 const LoginPage = lazy(() => import("@/pages/(auth)/loginPage"));
@@ -70,8 +71,18 @@ export const routes = createBrowserRouter([
                 ],
               },
               {
-                path: ERouteNames.STATISTICS_ROUTE,
-                element: <StatisticsPage />,
+                path: ERouteNames.PROFILE_ROUTE,
+                element: <Outlet />,
+                children: [
+                  {
+                    path: ERouteNames.EMPTY_ROUTE,
+                    element: <ProfilePage />,
+                  },
+                ],
+              },
+              {
+                path: ERouteNames.INTERVIEWS_ROUTE,
+                element: <InterviewsPage />,
               },
             ],
           },
