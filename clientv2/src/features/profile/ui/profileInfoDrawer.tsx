@@ -61,7 +61,7 @@ export const ProfileInfoDrawer = () => {
   const handleReset = () => {
     form.reset();
   };
-
+  console.log("object");
   return (
     <Drawer open={isDrawerOpen} onClose={handleClose}>
       <DrawerContent className="border border-zinc-800 bg-black text-white">
