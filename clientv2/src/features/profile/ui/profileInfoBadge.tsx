@@ -1,27 +1,39 @@
+import { Profile } from "@/entities/profile/types/types";
 import { Image } from "@/shared/ui";
-import { Pen } from "lucide-react";
+import { Pen, UserRound } from "lucide-react";
 
 interface IProfileInfoBadgeProps {
   onClick: () => void;
+  currentProfile: Profile;
 }
 
-export const ProfileInfoBadge = ({ onClick }: IProfileInfoBadgeProps) => {
+export const ProfileInfoBadge = ({
+  currentProfile,
+  onClick,
+}: IProfileInfoBadgeProps) => {
   return (
     <div className="bg-neutral-900 rounded-3xl p-4 flex justify-between items-start h-[124px]">
       <div className="flex space-x-4">
-        <Image
-          width={96}
-          height={96}
-          alt="avatar"
-          src="/images/mock-danya.png"
-          className="rounded-xl"
-        />
+        {currentProfile.imageUrl ? (
+          <Image
+            width={96}
+            height={96}
+            alt="avatar"
+            src={currentProfile.imageUrl}
+            className="rounded-xl"
+          />
+        ) : (
+          <div className="h-24 w-24 flex items-center justify-center">
+            <UserRound className="h-16 w-16" />
+          </div>
+        )}
+
         <div className="flex flex-col justify-between">
           <p className="font-medium text-xl">
-            Даниил <br />
-            Хатунцев
+            {currentProfile.firstname} <br />
+            {currentProfile.surname}
           </p>
-          <p className="text-gray-400 text-sm">16.11.2003</p>
+          <p className="text-gray-400 text-sm">{currentProfile.birthday}</p>
         </div>
       </div>
       <button

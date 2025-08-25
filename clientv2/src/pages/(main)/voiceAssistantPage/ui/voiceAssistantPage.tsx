@@ -13,7 +13,7 @@ import { ERouteNames } from "@/shared";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const VoiceAssistantPage: React.FC = () => {
+export const VoiceAssistantPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [finished, setFinished] = useState<boolean>(false);

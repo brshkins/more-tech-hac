@@ -1,3 +1,4 @@
+import { useCurrentProfile } from "@/entities/profile/hooks/useCurrentProfile";
 import { ProfileInfoBadge } from "@/features/profile/ui/profileInfoBadge";
 import { ProfileUploadCvBadge } from "@/features/profile/ui/profileUploadCvBadge";
 import { EDrawerVariables, ERouteNames } from "@/shared";
@@ -7,14 +8,15 @@ import { InfoCard } from "@/widgets/infoCard";
 import {
   Award,
   ChevronLeft,
+  Loader,
   LucideMessageCircleQuestionMark,
 } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   //далее будет запрос на получение профиля и мутация с оптимистичным обновлением
-  const [cvFile, setCvFile] = useState<File | null>(null);
+  const { data: currentProfile, isSuccess, isPending } = useCurrentProfile();
+
   const navigate = useNavigate();
   const { setOpenDrawer } = useActions();
 
@@ -29,8 +31,16 @@ const ProfilePage = () => {
     setOpenDrawer({
       isOpen: true,
       type: EDrawerVariables.PROFILE_CV_DRAWER,
-      data: { onFileChange: (file: File | null) => setCvFile(file) },
+      data: { onFileChange: () => {} },
     });
+
+  if (!isSuccess || isPending) {
+    return (
+      <span>
+        <Loader className="animate-spin" />
+      </span>
+    );
+  }
 
   return (
     <div className="text-white flex flex-col space-y-3">
@@ -41,9 +51,12 @@ const ProfilePage = () => {
       </div>
 
       <div className="space-y-3">
-        <ProfileInfoBadge onClick={handleOpenProfileInfoDrawer} />
+        <ProfileInfoBadge
+          currentProfile={currentProfile}
+          onClick={handleOpenProfileInfoDrawer}
+        />
         <ProfileUploadCvBadge
-          profileCv={cvFile}
+          profileCv={currentProfile?.cvFile ?? null}
           onClick={handleOpenProfileCvDrawer}
         />
       </div>

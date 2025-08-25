@@ -37,7 +37,7 @@ const VacancyPage = () => {
                 <h1 className="text-xl font-medium text-white">
                   {vacancy.post}
                 </h1>
-                <p className="text-sm text-white/90">120 000 – 150 000 ₽</p>
+                <p className="text-sm text-white/90">{vacancy.salary}</p>
               </div>
 
               <IconButton

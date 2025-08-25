@@ -1,3 +1,6 @@
+import { questionAnswers } from "../lib/mockVoiceResult";
+import { VoiceStatistic } from "../types/types";
+
 class VoiceService {
   public async sendAudioUpload({ audioBlob }: { audioBlob: Blob }) {
     try {
@@ -15,6 +18,10 @@ class VoiceService {
       console.error("Audio save error:", err);
     }
   }
+
+  public async getVoiceDialogResult(): Promise<VoiceStatistic[]> {
+    return new Promise((resolve) => resolve(questionAnswers));
+  }
 }
 
-export const { sendAudioUpload } = new VoiceService();
+export const { sendAudioUpload, getVoiceDialogResult } = new VoiceService();
