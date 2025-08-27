@@ -1,10 +1,9 @@
-import { rootReducer } from "@/shared/model/store";
 import {
   asyncThunkCreator,
   buildCreateSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { SocketState } from "./type";
+import { SocketState } from "../types/types";
 
 const createSliceWithThunks = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
@@ -64,8 +63,7 @@ export const socketSlice = createSliceWithThunks({
       }
     ),
   }),
-}).injectInto(rootReducer);
+});
 
-export const socketReducer = socketSlice.reducer;
 export const socketActions = socketSlice.actions;
 export const socketSelectors = socketSlice.selectors;

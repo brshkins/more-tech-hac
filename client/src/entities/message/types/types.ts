@@ -1,14 +1,10 @@
-export interface IMessage {
-  created_at: string;
-  from_user: boolean;
+export type MessageType = "user" | "question" | "assistant" | "clarification";
+export interface Message {
   id: string;
   text: string;
-  liked: boolean | null;
-  questions?: Array<string>;
-  link?: string;
-}
-
-export interface IAnalyticsMessage {
-  dislike: number;
-  like: number;
+  from_user: boolean;
+  created_at: string;
+  type: MessageType;
+  clarificationMessages?: Message[];
+  questions?: string[];
 }
