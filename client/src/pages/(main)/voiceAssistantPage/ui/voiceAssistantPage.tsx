@@ -10,6 +10,8 @@ import { VoiceAssistantBar } from "@/features/voice/ui/voiceAssistantBar";
 import { VoiceAssistantHeader } from "@/features/voice/ui/voiceAssistantHeader";
 import { VoiceAssistantMessageList } from "@/features/voice/ui/voiceAssistantMessageList";
 import { ERouteNames } from "@/shared";
+import { useActions } from "@/shared/hooks/useActions";
+import { EModalVariables } from "@/shared/lib/utils/modalVariables";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +20,7 @@ export const VoiceAssistantPage = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [finished, setFinished] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { setOpenModal } = useActions();
   const lastQuestionIndexRef = useRef<number>(-1);
 
   const headerProgress = useMemo(() => {
@@ -140,6 +143,7 @@ export const VoiceAssistantPage = () => {
 
     if (finished) {
       speakQuestion(finalMessageText);
+      setOpenModal({ isOpen: true, type: EModalVariables.ESTIMATION_MODAL });
     }
   }, [finished]);
 

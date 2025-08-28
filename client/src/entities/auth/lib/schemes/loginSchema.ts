@@ -6,7 +6,7 @@ export const LoginSchema = z.object({
       message: "Email обязателен",
     })
     .email({
-      message: "Введите корректный email-адрес (например, user@example.com)",
+      message: "Введите корректный email-адрес",
     })
     .max(254, {
       message: "Email не должен превышать 254 символа",
@@ -23,5 +23,8 @@ export const LoginSchema = z.object({
       message: "Пароль не должен превышать 128 символов",
     })
     .trim(),
+  role: z.enum(["user", "admin"], {
+    message: "Роль должна быть 'user' или 'admin'",
+  }),
 });
 export type TypeLoginSchema = z.infer<typeof LoginSchema>;

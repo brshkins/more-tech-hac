@@ -5,11 +5,13 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { store } from "../store";
 import { DrawerProvider } from "./drawerProvider";
+import ModalProvider from "./modalProvider";
 
 export const Providers = () => (
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <DrawerProvider />
+      <ModalProvider />
       <RouterProvider router={routes} />
     </Provider>
   </QueryClientProvider>
