@@ -224,9 +224,12 @@ def pretty_pct(x):
     return f"{100*x:.1f}%"
 
 
+top_5_id = []
 print("Лучшие вакансии (энсамбль сигналов):")
-for rank, idx in enumerate(order[:10], 1):
+for rank, idx in enumerate(order[:5], 1):
     v = vacancies[idx]
+    id = v['id']
+    top_5_id.append(id)
     print(f"{rank}. {v['company']['name']} — {v['post']} [{v.get('region','')}]  | score={final_score[idx]:.3f}")
     print(f"   • emb={pretty_pct(emb_norm[idx])} | skills={pretty_pct(skill_sims[idx])} | bm25={pretty_pct(bm_norm[idx])} | title={pretty_pct(title_sims[idx])} | level={pretty_pct(level_sims[idx])} | region={pretty_pct(region_sims[idx])}")
     inter = sorted(list(resume_skills & job_skills[idx]))
