@@ -18,7 +18,7 @@ export const RegisterForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
+      username: "",
     },
   });
 
@@ -61,7 +61,7 @@ export const RegisterForm = () => {
                       {errors.email.message}
                     </span>
                   )}
-                  {field.value && (
+                  {field.value && !errors.email && (
                     <button
                       className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
                       onClick={() => field.onChange("")}
@@ -70,6 +70,40 @@ export const RegisterForm = () => {
                     </button>
                   )}
                   {errors.email && (
+                    <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
+                      <CircleAlert className="w-4 h-4" />
+                    </button>
+                  )}
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem className="relative gap-1">
+                  <FloatingLabelInput
+                    {...field}
+                    label="Фио"
+                    className={cn(
+                      "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
+                      errors.username && "border-red-700"
+                    )}
+                  />
+                  {errors.username && (
+                    <span className="text-red-800 text-xs px-3">
+                      {errors.username.message}
+                    </span>
+                  )}
+                  {field.value && !errors.username && (
+                    <button
+                      className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
+                      onClick={() => field.onChange("")}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                  {errors.username && (
                     <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
                       <CircleAlert className="w-4 h-4" />
                     </button>
@@ -95,7 +129,7 @@ export const RegisterForm = () => {
                       {errors.password.message}
                     </span>
                   )}
-                  {field.value && (
+                  {field.value && !errors.password && (
                     <button
                       className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
                       onClick={() => field.onChange("")}
@@ -104,40 +138,6 @@ export const RegisterForm = () => {
                     </button>
                   )}
                   {errors.password && (
-                    <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
-                      <CircleAlert className="w-4 h-4" />
-                    </button>
-                  )}
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem className="relative gap-1">
-                  <FloatingLabelInput
-                    {...field}
-                    label="Подтверждение пароля"
-                    className={cn(
-                      "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
-                      errors.confirmPassword && "border-red-700"
-                    )}
-                  />
-                  {errors.confirmPassword && (
-                    <span className="text-red-800 text-xs px-3">
-                      {errors.confirmPassword.message}
-                    </span>
-                  )}
-                  {field.value && (
-                    <button
-                      className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
-                      onClick={() => field.onChange("")}
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                  {errors.confirmPassword && (
                     <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
                       <CircleAlert className="w-4 h-4" />
                     </button>

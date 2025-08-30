@@ -14,4 +14,6 @@ export const enum ERouteNames {
   REGISTER_ROUTE = "register",
   RESULT_ROUTE = "result",
   PROFILE_ROUTE = "profile",
+  CANDIDATES_ROUTE = "candidates",
+  MANAGEMENT_ROUTE = "management",
 }

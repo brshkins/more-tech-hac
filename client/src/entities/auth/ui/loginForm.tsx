@@ -67,7 +67,7 @@ export const LoginForm = () => {
                       {errors.email.message}
                     </span>
                   )}
-                  {field.value && (
+                  {field.value && !errors.email && (
                     <button
                       className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
                       onClick={() => field.onChange("")}
@@ -91,6 +91,7 @@ export const LoginForm = () => {
                   <FloatingLabelInput
                     {...field}
                     label="Пароль"
+                    type="password"
                     className={cn(
                       "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
                       errors.password && "border-red-700"
@@ -101,7 +102,7 @@ export const LoginForm = () => {
                       {errors.password.message}
                     </span>
                   )}
-                  {field.value && (
+                  {field.value && !errors.password && (
                     <button
                       className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
                       onClick={() => field.onChange("")}

@@ -1,7 +1,5 @@
 import { Message } from "@/entities/message/types/types";
 import { cn } from "@/shared/lib/utils/twMerge";
-import { useState } from "react";
-import { VoiceAssistantBubbleDetail } from "./voiceAssistantBubbleDetail";
 
 interface VoiceAssistantBubbleProps {
   message: Message;
@@ -9,18 +7,9 @@ interface VoiceAssistantBubbleProps {
 }
 
 export const VoiceAssistantBubble = ({
-  message: {
-    created_at,
-    from_user,
-    text,
-    clarificationMessages,
-    questions,
-    id,
-  },
-  onSendClarification,
+  message: { created_at, from_user, text },
 }: VoiceAssistantBubbleProps) => {
   const isUser = !!from_user;
-  const [expanded, setExpanded] = useState(false);
   return (
     <div
       className={cn("w-full flex", isUser ? "justify-end" : "justify-start")}
@@ -46,17 +35,17 @@ export const VoiceAssistantBubble = ({
             {created_at}
           </span>
 
-          {!isUser && clarificationMessages && (
+          {/* {!isUser && clarificationMessages && (
             <button
               className="text-white text-xs cursor-pointer"
               onClick={() => setExpanded((prev) => !prev)}
             >
               {expanded ? "Скрыть" : "Уточнить"}
             </button>
-          )}
+          )} */}
         </div>
 
-        {!isUser && clarificationMessages && (
+        {/* {!isUser && clarificationMessages && (
           <VoiceAssistantBubbleDetail
             expanded={expanded}
             clarificationMessages={clarificationMessages}
@@ -64,7 +53,7 @@ export const VoiceAssistantBubble = ({
             questionId={id}
             onSendClarification={onSendClarification}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

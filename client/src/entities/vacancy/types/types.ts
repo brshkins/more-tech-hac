@@ -14,6 +14,7 @@ export interface VacancySection {
 export interface Vacancy {
   id: string;
   company: Company;
+  region: string;
   post: string;
   salary: string;
   tags: Array<string>;
@@ -52,7 +53,7 @@ export interface VacancyFilter {
    * Ключевые слова для поиска
    * Например: "React", "UI/UX", "Product Designer"
    */
-  keyWords: string;
+  tags: string;
 
   /**
    * Регион/локация

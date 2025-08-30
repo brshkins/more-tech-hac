@@ -27,19 +27,8 @@ export const VoiceAssistantRating = () => {
       </motion.div>
     ));
   return (
-    <div className="flex flex-col items-center justify-center space-y-2">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <p className="text-sm text-zinc-300 text-center">
-          Ваше собеседование прошло успешно! Просим оценить проведение
-          собеседования от нашего AI-ассистента
-        </p>
-      </motion.div>
-
-      <div className="flex space-x-2 mb-4">{stars}</div>
+    <div className="flex flex-col items-center justify-center space-y-3">
+      <div className="flex space-x-2">{stars}</div>
       <AnimatePresence>
         {rating && (
           <motion.p

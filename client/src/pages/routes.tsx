@@ -11,7 +11,11 @@ import { voiceDetailAction } from "@/entities/voice/actions/voiceDetailAction";
 const DashboardPage = lazy(() => import("@/pages/(main)/dashboardPage"));
 const ChatPage = lazy(() => import("@/pages/(main)/voiceAssistantPage"));
 const ProfilePage = lazy(() => import("@/pages/(main)/profilePage"));
-const AdminPage = lazy(() => import("@/pages/(admin)/adminPage"));
+
+const AnalyticsPage = lazy(() => import("@/pages/(admin)/analyticsPage"));
+const CandidatesPage = lazy(() => import("@/pages/(admin)/candidatesPage"));
+const ManagementPage = lazy(() => import("@/pages/(admin)/managementPage"));
+
 const VacancyPage = lazy(() => import("@/pages/(main)/vacancyPage"));
 const ResultPage = lazy(() => import("@/pages/(main)/resultPage"));
 const InterviewsPage = lazy(() => import("@/pages/(main)/interviewsPage"));
@@ -88,7 +92,21 @@ export const routes = createBrowserRouter([
           },
           {
             path: ERouteNames.DASHBOARD_ADMIN_ROUTE,
-            element: <AdminPage />,
+            element: <Outlet />,
+            children: [
+              {
+                path: ERouteNames.EMPTY_ROUTE,
+                element: <AnalyticsPage />,
+              },
+              {
+                path: ERouteNames.CANDIDATES_ROUTE,
+                element: <CandidatesPage />,
+              },
+              {
+                path: ERouteNames.MANAGEMENT_ROUTE,
+                element: <ManagementPage />,
+              },
+            ],
           },
         ],
       },

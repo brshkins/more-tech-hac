@@ -18,7 +18,7 @@ export const InfoCard = ({
         {icon}
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-zinc-600 leading-4">{title}</span>
+        <span className="text-sm text-zinc-300 leading-4">{title}</span>
         <ChevronRight className="text-zinc-600" />
       </div>
     </div>
