@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { FormField, FormItem } from "@/shared/ui/form/form";
-import { PlusCircle, X, CircleAlert, Plus } from "lucide-react";
+import { X, CircleAlert, Plus } from "lucide-react";
 import { FloatingLabelInput } from "@/shared/ui/input/floatingInputLabel";
 import { cn } from "@/shared/lib/utils/twMerge";
 import {
@@ -51,7 +51,11 @@ export const VacancyCreateForm = () => {
     );
   };
 
-  const addDescription = (section: "responsibilities" | "requirements") => {
+  const addDescription = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const section = event.currentTarget.value as
+      | "responsibilities"
+      | "requirements";
+    if (!section) return;
     const currentDescriptions = watch(`${section}.description`);
     setValue(`${section}.description`, [...currentDescriptions, ""]);
   };
@@ -427,9 +431,11 @@ export const VacancyCreateForm = () => {
             ))}
             <Button
               type="button"
-              onClick={() => addDescription("responsibilities")}
+              className="text-zinc-400"
+              value={"responsibilities"}
+              onClick={addDescription}
             >
-              <PlusCircle className="w-4 h-4 mr-2" /> Добавить обязанности
+              <Plus className="w-4 h-4 mr-1" /> Добавить обязанности
             </Button>
           </motion.div>
 
@@ -475,9 +481,11 @@ export const VacancyCreateForm = () => {
             ))}
             <Button
               type="button"
-              onClick={() => addDescription("requirements")}
+              className="text-zinc-400"
+              value={"requirements"}
+              onClick={addDescription}
             >
-              <PlusCircle className="w-4 h-4 mr-2" /> Добавить требования
+              <Plus className="w-4 h-4" /> Добавить требования
             </Button>
           </motion.div>
 
