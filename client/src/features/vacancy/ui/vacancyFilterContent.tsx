@@ -56,8 +56,8 @@ export const VacancyFilterContent = forwardRef((_, ref) => {
           Ключевые слова
         </span>
         <Input
-          value={vacancyLocalFilters.keyWords ?? ""}
-          name="keyWords"
+          value={vacancyLocalFilters.tags ?? ""}
+          name="tags"
           className={
             "py-6 bg-neutral-900 text-zinc-300 rounded-xl shadow-sm border-neutral-900"
           }

@@ -59,6 +59,7 @@ export const CandidateDrawer = () => {
   };
 
   const handleEditField = (field: keyof Candidate) => {
+    console.log(field);
     // Implement actual edit logic (e.g., open a form or modal)
   };
 

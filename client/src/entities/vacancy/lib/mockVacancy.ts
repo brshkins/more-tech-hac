@@ -10,6 +10,7 @@ export const mockVacancies: Vacancy[] = [
       industry: "FinTech",
       siteUrl: "https://www.vtb.ru",
     },
+    region: "Москва",
     post: "UX/UI Дизайнер",
     salary: "120000 – 150000 ₽",
     tags: ["Фултайм", "Офис"],
@@ -45,6 +46,8 @@ export const mockVacancies: Vacancy[] = [
       industry: "FinTech",
       siteUrl: "https://www.pochtabank.ru",
     },
+    region: "Москва",
+
     post: "Продуктовый Дизайнер",
     salary: "200 000 - 250 000 ₽",
     tags: ["Гибрид", "Senior"],
@@ -77,6 +80,8 @@ export const mockVacancies: Vacancy[] = [
       industry: "FinTech",
       siteUrl: "https://www.bm-bank.ru/",
     },
+    region: "Москва",
+
     post: "Frontend разработчик",
     salary: "от 180 000 ₽",
     tags: ["Офис", "Гибкий график"],
@@ -109,6 +114,8 @@ export const mockVacancies: Vacancy[] = [
       industry: "Big Data",
       siteUrl: "https://www.vtb-leasing.ru",
     },
+    region: "Москва",
+
     post: "Backend разработчик",
     salary: "по договорённости",
     tags: ["Удалённо", "Международный проект"],
@@ -141,6 +148,8 @@ export const mockVacancies: Vacancy[] = [
       industry: "Робототехника",
       siteUrl: "https://sbb.bm-bank.ru",
     },
+    region: "Москва",
+
     post: "ML engineer",
     salary: "от 220 000 ₽",
     tags: ["Офис", "Опыт 3+ года"],

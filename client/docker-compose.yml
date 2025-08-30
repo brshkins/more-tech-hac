@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   frontend:
     build: .
-    container_name: more-tech-frontend-container
+    container_name: poseshchaemostinet-frontend-container
     restart: unless-stopped
     ports:
       - "5173:5173"

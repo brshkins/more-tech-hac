@@ -40,6 +40,7 @@ const vacancies: Vacancy[] = [
     salary: "$80,000 - $120,000",
     tags: ["React", "TypeScript", "UI/UX"],
     isFavorite: true,
+    region: "Москва",
     responsibilities: {
       title: "Key Responsibilities",
       description: [
@@ -64,6 +65,8 @@ const vacancies: Vacancy[] = [
     salary: "$90,000 - $140,000",
     tags: ["Python", "Machine Learning", "Data Analysis"],
     isFavorite: false,
+    region: "Москва",
+
     responsibilities: {
       title: "Key Responsibilities",
       description: [
@@ -88,6 +91,8 @@ const vacancies: Vacancy[] = [
     salary: "$70,000 - $100,000",
     tags: ["Recruitment", "Employee Relations", "HR Strategy"],
     isFavorite: false,
+    region: "Москва",
+
     responsibilities: {
       title: "Key Responsibilities",
       description: [
@@ -112,6 +117,8 @@ const vacancies: Vacancy[] = [
     salary: "$85,000 - $130,000",
     tags: ["Python", "Alchemist", "PostgreSQL"],
     isFavorite: true,
+    region: "Москва",
+
     responsibilities: {
       title: "Key Responsibilities",
       description: [
@@ -144,6 +151,7 @@ const vacancies: Vacancy[] = [
         "Collaborate with DevOps teams for deployments.",
       ],
     },
+    region: "Москва",
     requirements: {
       title: "Requirements",
       description: [
