@@ -1,0 +1,1 @@
+from backend.infrastructure.database.models.user import User
