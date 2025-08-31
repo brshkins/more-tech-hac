@@ -10,6 +10,7 @@ export const ProfileFormSchema = z.object({
     .min(2, { message: "Фамилия должна содержать минимум 2 символа" })
     .max(50, { message: "Фамилия не должна превышать 50 символов" }),
   photo: z.string(),
+  photoFile: z.instanceof(File).optional(),
 });
 
 export type TypeProfileFormSchema = z.infer<typeof ProfileFormSchema>;

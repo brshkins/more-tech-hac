@@ -5,7 +5,6 @@ from backend.infrastructure.database.models.user import User
 from backend.infrastructure.errors.auth_errors import UserAlreadyExists
 from backend.infrastructure.interfaces.service import DbModelServiceInterface
 
-
 class UserService(DbModelServiceInterface[User]):
     def __init__(self, user_repository: UserRepository, aws_client: AWSClient):
         self.repository = user_repository
@@ -33,11 +32,19 @@ class UserService(DbModelServiceInterface[User]):
         if form.cv_file:
             await self.aws_client.upload_one_file(form.cv_file, f"users/{user.id}/cv_file/")
             cv_file_url = f"users/{user.id}/cv_file/"
+        image_url = None
+        if form.image_url:
+            await self.aws_client.upload_one_file(form.image_url, f"users/{user.id}/image/")
+            image_url = f"users/{user.id}/image/" 
+
         update_data = form.model_dump()
         if cv_file_url is not None:
             update_data["cv_file"] = cv_file_url
         else:
             update_data.pop("cv_file", None)
-        # Удаляем все None-значения, чтобы не затирать обязательные поля
+        if image_url is not None:
+            update_data["image_url"] = image_url
+        else:
+            update_data.pop("image_url", None)
         update_data = {k: v for k, v in update_data.items() if v is not None}
         return await self.repository.update_item(user.id, **update_data)

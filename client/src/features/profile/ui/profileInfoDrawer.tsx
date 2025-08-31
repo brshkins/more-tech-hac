@@ -21,6 +21,7 @@ import { FloatingLabelInput } from "@/shared/ui/input/floatingInputLabel";
 import { cn } from "@/shared/lib/utils/twMerge";
 import { UploadFileButton } from "@/features/files/ui/uploadFileButton";
 import { Profile } from "@/entities/profile/types/types";
+import { useUpdateProfile } from "@/entities/profile/hooks/useCurrentProfile";
 
 export const ProfileInfoDrawer = () => {
   const isOpen = useAppSelector(drawerSelectors.isOpen);
@@ -28,6 +29,8 @@ export const ProfileInfoDrawer = () => {
   const { currentProfile } = useAppSelector(drawerSelectors.data) as {
     currentProfile: Profile;
   };
+
+  const { mutate: updateProfile } = useUpdateProfile();
   const { toggleDrawer } = useActions();
 
   const isDrawerOpen = isOpen && type === EDrawerVariables.PROFILE_DRAWER;
@@ -39,9 +42,10 @@ export const ProfileInfoDrawer = () => {
   const form = useForm<TypeProfileFormSchema>({
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
-      firstName: currentProfile.firstname,
-      lastName: currentProfile.lastname,
-      photo: currentProfile.imageUrl,
+      firstName: currentProfile.username.split(" ")[0],
+      lastName: currentProfile.username.split(" ")[1],
+      photo: currentProfile.image_url,
+      photoFile: undefined,
     },
   });
 
@@ -50,7 +54,13 @@ export const ProfileInfoDrawer = () => {
   } = form;
 
   const onSubmit = (data: TypeProfileFormSchema) => {
-    console.log("Сохранённые данные:", data);
+    const formData = new FormData();
+    formData.append("username", `${data.firstName} ${data.lastName}`);
+    if (data.photoFile) {
+      console.log(data.photoFile);
+      formData.append("image_url", data.photoFile);
+    }
+    updateProfile({ form: formData });
     handleClose();
   };
 
@@ -95,6 +105,7 @@ export const ProfileInfoDrawer = () => {
                           acceptedExtensions={["jpg", "jpeg", "png"]}
                           onFileChange={(file) => {
                             if (file) {
+                              form.setValue("photoFile", file);
                               field.onChange(URL.createObjectURL(file));
                             }
                           }}

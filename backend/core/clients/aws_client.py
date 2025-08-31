@@ -35,8 +35,8 @@ class AWSClient:
             await client.put_object(
                 Key=path,
                 Body=await file.read(),
-            Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME
-        )
+                Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME,
+            )
 
     async def delete_one_file(self, path: str):
         await self.client.delete_object(Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME, Key=path)

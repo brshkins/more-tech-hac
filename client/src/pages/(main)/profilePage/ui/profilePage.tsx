@@ -1,12 +1,13 @@
-import { updateCurrentProfile } from "@/entities/profile/api/profileService";
-import { useCurrentProfile } from "@/entities/profile/hooks/useCurrentProfile";
+import {
+  useCurrentProfile,
+  useUpdateProfile,
+} from "@/entities/profile/hooks/useCurrentProfile";
 import { ProfileInfoBadge } from "@/features/profile/ui/profileInfoBadge";
 import { ProfileUploadCvBadge } from "@/features/profile/ui/profileUploadCvBadge";
 import { EDrawerVariables, ERouteNames } from "@/shared";
 import { useActions } from "@/shared/hooks/useActions";
 import { IconButton } from "@/shared/ui/button/iconButton";
 import { InfoCard } from "@/widgets/infoCard";
-import { useMutation } from "@tanstack/react-query";
 import {
   Award,
   ChevronLeft,
@@ -22,9 +23,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { setOpenDrawer } = useActions();
 
-  const { mutate } = useMutation({
-    mutationFn: updateCurrentProfile,
-  });
+  const { mutate } = useUpdateProfile();
 
   const handleToDashboard = () => navigate(-1);
   const handleToInterviews = () =>

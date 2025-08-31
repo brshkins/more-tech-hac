@@ -1,7 +1,7 @@
 import { FileTextIcon, Pen } from "lucide-react";
 
 interface ProfileUploadCvBadgeProps {
-  profileCv: File | null;
+  profileCv: string;
   onClick: VoidFunction;
 }
 
@@ -23,14 +23,18 @@ export const ProfileUploadCvBadge = ({
         </button>
         {profileCv ? (
           <div>
-            <p className="text-sm font-medium">{profileCv.name}</p>
+            <a
+              href={profileCv}
+              className="text-sm font-medium underline text-blue-600"
+            >
+              Ваше резюме
+            </a>
             <p className="text-xs text-gray-400">{currentDate}</p>
           </div>
         ) : (
           <p className="text-red-500 text-sm font-medium">CV не загружено</p>
         )}
       </div>
-      {/* <UploadFileButton onFileChange={(file) => console.log(file)} /> */}
       <button
         className="text-gray-400 hover:text-white border-zinc-600 border cursor-pointer bg-zinc-800 flex items-center rounded-full p-2"
         onClick={onClick}
