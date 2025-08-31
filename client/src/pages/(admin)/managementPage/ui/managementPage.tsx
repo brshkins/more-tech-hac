@@ -1,10 +1,25 @@
 import { VacancyCreateForm } from "@/entities/vacancy/ui/vacancyCreateForm";
 import { Image } from "@/shared/ui";
+import { IconButton } from "@/shared/ui/button/iconButton";
 import { motion } from "framer-motion";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ManagementPage = () => {
+  const navigate = useNavigate();
+
+  const handleBackPage = () => navigate(-1);
   return (
-    <div>
+    <div className="space-y-3">
+      <div className="flex justify-start items-center">
+        <IconButton
+          ariaLabel="вернуться назад"
+          onClick={handleBackPage}
+          className="bg-neutral-900"
+        >
+          <ChevronLeft className="h-6 w-6 text-zinc-300" />
+        </IconButton>
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
