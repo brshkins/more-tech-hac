@@ -17,6 +17,8 @@ class DatabaseConnection:
     @classmethod
     async def create_tables(cls, refresh: bool = False):
         async with cls.__engine.begin() as conn:
+            if refresh:
+                await conn.run_sync(Base.metadata.drop_all)
             await conn.run_sync(Base.metadata.create_all)
 
         async with AsyncSession(bind=cls.__engine) as session:

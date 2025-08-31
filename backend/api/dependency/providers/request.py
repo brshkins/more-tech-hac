@@ -30,6 +30,12 @@ class RequestProvider(Provider):
             aws_client=aws_client
         )
 
+    @provide(scope=Scope.REQUEST)
+    async def get_vacancy_service(self, session: AsyncSession) -> services.VacancyService:
+        return services.VacancyService(
+            vacancy_repository=repositories.VacancyRepository(session)
+        )
+
 @inject
 async def get_current_user_dependency(
     auth_service: FromDishka[services.AuthService], 

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
+import uuid
 
 class CompanyDTO(BaseModel):
     id: str
@@ -19,7 +20,7 @@ class VacancySectionDTO(BaseModel):
         from_attributes = True
 
 class VacancyDTO(BaseModel):
-    id: str
+    id: int
     company: Optional[CompanyDTO] 
     region: str
     post: str

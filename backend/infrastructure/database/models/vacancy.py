@@ -12,7 +12,7 @@ class Company(Base):
 
 class Vacancy(Base):
     __tablename__ = "vacancies"
-    id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True)
     company_id = Column(String, ForeignKey("companies.id"))
     region = Column(String)
     post = Column(String)

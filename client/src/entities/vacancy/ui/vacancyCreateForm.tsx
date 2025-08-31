@@ -75,7 +75,22 @@ export const VacancyCreateForm = () => {
 
   const onSubmit = (data: VacancyFormData) => {
     console.log("Form submitted:", data);
-    // createVacancy({company_id: data.company.});
+    createVacancy({
+      company_id: "vtb-company",
+      is_favorite: false,
+      post: data.post,
+      salary: data.salary,
+      tags: data.tags,
+      region: "Москва",
+      requirements: {
+        description: data.requirements.description,
+        title: data.requirements.title ?? "Требования",
+      },
+      responsibilities: {
+        description: data.responsibilities.description,
+        title: data.responsibilities.title ?? "Обязанности",
+      },
+    });
     form.reset();
   };
 

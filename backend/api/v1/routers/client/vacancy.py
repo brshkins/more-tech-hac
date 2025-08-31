@@ -47,7 +47,7 @@ def to_vacancy_dto(vacancy):
 @inject
 async def create_vacancy(
     data: VacancyCreateDTO,
-    service: FromDishka[VacancyService] = Depends()
+    service: FromDishka[VacancyService] = Depends(),
 ):
     vacancy = await service.create_vacancy(data)
     return to_vacancy_dto(vacancy)

@@ -26,7 +26,5 @@ async def init_tables(session: AsyncSession):
         site_url="https://www.vtb.ru",
         industry="FinTech",
     )
-
     session.add_all([user, company])
-    
     await session.commit()
