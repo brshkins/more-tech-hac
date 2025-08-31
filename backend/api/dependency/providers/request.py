@@ -24,9 +24,12 @@ class RequestProvider(Provider):
         return services.AuthService(repository=repositories.UserRepository(session))
 
     @provide(scope=Scope.REQUEST)
-    async def get_user_service(self, session: AsyncSession, aws_client: AWSClient) -> services.UserService:    
-        return services.UserService(repository=repositories.UserRepository(session), aws_client=aws_client)
-    
+    async def get_user_service(self, session: AsyncSession, aws_client: AWSClient) -> services.UserService:
+        return services.UserService(
+            user_repository=repositories.UserRepository(session),
+            aws_client=aws_client
+        )
+
 @inject
 async def get_current_user_dependency(
     auth_service: FromDishka[services.AuthService], 

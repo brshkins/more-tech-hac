@@ -11,9 +11,33 @@ class UserService(DbModelServiceInterface[User]):
         self.repository = user_repository
         self.aws_client = aws_client
 
+    async def create(self, *args, **kwargs):
+        pass
+
+    async def delete(self, *args, **kwargs):
+        pass
+
+    async def delete_many(self, *args, **kwargs):
+        pass
+
+    async def get_all(self, *args, **kwargs):
+        pass
+
+    async def get_one(self, *args, **kwargs):
+        pass
+
     async def update(self, user: User, form: UserUpdateForm) -> BaseUserModel:
         if form.email and await self.repository.get_by_attribute("email", form.email):
             raise UserAlreadyExists()
+        cv_file_url = None
         if form.cv_file:
             await self.aws_client.upload_one_file(form.cv_file, f"users/{user.id}/cv_file/")
-        return await self.repository.update_item(form.id, **form.model_dump())
+            cv_file_url = f"users/{user.id}/cv_file/"
+        update_data = form.model_dump()
+        if cv_file_url is not None:
+            update_data["cv_file"] = cv_file_url
+        else:
+            update_data.pop("cv_file", None)
+        # Удаляем все None-значения, чтобы не затирать обязательные поля
+        update_data = {k: v for k, v in update_data.items() if v is not None}
+        return await self.repository.update_item(user.id, **update_data)

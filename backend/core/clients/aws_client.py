@@ -24,9 +24,17 @@ class AWSClient:
             return client
     
     async def upload_one_file(self, file: UploadFile, path: str):
-        await self.client.put_object(
-            Key=path, 
-            Body=file.file.read(),
+        session = AioSession()
+        async with session.create_client(
+            "s3",
+            aws_access_key_id=AWS_STORAGE_CONFIG.AWS_ACCESS_KEY,
+            aws_secret_access_key=AWS_STORAGE_CONFIG.AWS_SECRET_ACCESS_KEY,
+            endpoint_url=AWS_STORAGE_CONFIG.AWS_ENDPOINT_URL,
+            region_name=AWS_STORAGE_CONFIG.AWS_REGION,
+        ) as client:
+            await client.put_object(
+                Key=path,
+                Body=await file.read(),
             Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME
         )
 

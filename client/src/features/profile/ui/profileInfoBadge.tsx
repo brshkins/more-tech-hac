@@ -14,12 +14,12 @@ export const ProfileInfoBadge = ({
   return (
     <div className="bg-neutral-900 rounded-3xl p-4 flex justify-between items-start h-[124px]">
       <div className="flex space-x-4">
-        {currentProfile.imageUrl ? (
+        {currentProfile.image_url ? (
           <Image
             width={96}
             height={96}
             alt="avatar"
-            src={currentProfile.imageUrl}
+            src={currentProfile.image_url}
             className="rounded-xl"
           />
         ) : (
@@ -29,11 +29,7 @@ export const ProfileInfoBadge = ({
         )}
 
         <div className="flex flex-col justify-between">
-          <p className="font-medium text-xl">
-            {currentProfile.firstname} <br />
-            {currentProfile.lastname}
-          </p>
-          <p className="text-gray-400 text-sm">{currentProfile.birthday}</p>
+          <p className="font-medium text-xl">{currentProfile.username}</p>
         </div>
       </div>
       <button

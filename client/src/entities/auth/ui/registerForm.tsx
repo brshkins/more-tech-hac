@@ -11,6 +11,7 @@ import { CircleAlert, X } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { Link } from "react-router-dom";
 import { ERouteNames } from "@/shared";
+import { useRegisterMutation } from "../hooks/useRegister";
 
 export const RegisterForm = () => {
   const form = useForm<TypeRegisterSchema>({
@@ -22,6 +23,8 @@ export const RegisterForm = () => {
     },
   });
 
+  const { mutate } = useRegisterMutation();
+
   const {
     handleSubmit,
     reset,
@@ -30,7 +33,7 @@ export const RegisterForm = () => {
 
   const onSubmit = (data: TypeRegisterSchema) => {
     reset();
-    console.log(data);
+    mutate(data);
   };
   return (
     <div className="space-y-2 w-full flex items-center justify-center">

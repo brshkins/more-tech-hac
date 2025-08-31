@@ -6,13 +6,12 @@ import { FloatingLabelInput } from "@/shared/ui/input/floatingInputLabel";
 import { cn } from "@/shared/lib/utils/twMerge";
 import { CircleAlert, X } from "lucide-react";
 import { Button } from "@/shared/ui";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ERouteNames } from "@/shared";
 import clsx from "clsx";
+import { useLoginMutation } from "../hooks/useLogin";
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
-
   const form = useForm<TypeLoginSchema>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -20,6 +19,8 @@ export const LoginForm = () => {
       password: "",
     },
   });
+
+  const { mutate } = useLoginMutation();
 
   const {
     handleSubmit,
@@ -29,14 +30,7 @@ export const LoginForm = () => {
 
   const onSubmit = (data: TypeLoginSchema) => {
     reset();
-    if (data.role === "admin") {
-      navigate(`/${ERouteNames.DASHBOARD_ADMIN_ROUTE}`);
-      return;
-    }
-    if (data.role === "user") {
-      navigate(`/${ERouteNames.DASHBOARD_ROUTE}`);
-      return;
-    }
+    mutate(data);
   };
   return (
     <div className="space-y-2 w-full flex items-center justify-center">

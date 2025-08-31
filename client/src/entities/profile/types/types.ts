@@ -1,8 +1,8 @@
 export interface Profile {
-  id: string;
-  firstname: string;
-  lastname: string;
-  birthday: string;
-  imageUrl?: string;
-  cvFile: null | File;
+  id: 0;
+  email: string;
+  username: string;
+  image_url: string;
+  cv_file: string;
+  is_admin: true;
 }

@@ -1,3 +1,4 @@
+import { updateCurrentProfile } from "@/entities/profile/api/profileService";
 import { useCurrentProfile } from "@/entities/profile/hooks/useCurrentProfile";
 import { ProfileInfoBadge } from "@/features/profile/ui/profileInfoBadge";
 import { ProfileUploadCvBadge } from "@/features/profile/ui/profileUploadCvBadge";
@@ -5,6 +6,7 @@ import { EDrawerVariables, ERouteNames } from "@/shared";
 import { useActions } from "@/shared/hooks/useActions";
 import { IconButton } from "@/shared/ui/button/iconButton";
 import { InfoCard } from "@/widgets/infoCard";
+import { useMutation } from "@tanstack/react-query";
 import {
   Award,
   ChevronLeft,
@@ -19,6 +21,10 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
   const { setOpenDrawer } = useActions();
+
+  const { mutate } = useMutation({
+    mutationFn: updateCurrentProfile,
+  });
 
   const handleToDashboard = () => navigate(-1);
   const handleToInterviews = () =>
@@ -35,7 +41,15 @@ const ProfilePage = () => {
     setOpenDrawer({
       isOpen: true,
       type: EDrawerVariables.PROFILE_CV_DRAWER,
-      data: { onFileChange: () => {} },
+      data: {
+        onFileChange: (file: File) => {
+          const formData = new FormData();
+          if (file) {
+            formData.append("cv_file", file);
+          }
+          mutate({ form: formData });
+        },
+      },
     });
 
   if (!isSuccess || isPending) {
@@ -60,7 +74,7 @@ const ProfilePage = () => {
           onClick={handleOpenProfileInfoDrawer}
         />
         <ProfileUploadCvBadge
-          profileCv={currentProfile?.cvFile ?? null}
+          profileCv={currentProfile.cv_file ?? null}
           onClick={handleOpenProfileCvDrawer}
         />
       </div>

@@ -1,10 +1,26 @@
-import { mockProfile } from "../lib/mockProfile";
+import { axiosNoAuth } from "@/shared/api/baseQueryInstance";
 import { Profile } from "../types/types";
 
 class ProfileService {
   public async getCurrentProfile(): Promise<Profile> {
-    return new Promise((resolve) => resolve(mockProfile));
+    const { data } = await axiosNoAuth.get<Profile>(
+      "/client/auth/current_user"
+    );
+
+    return data;
+  }
+
+  public async updateCurrentProfile({ form }: { form: FormData }) {
+    return await axiosNoAuth.put(
+      "/client/user",
+      form as unknown as Record<string, unknown>,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
   }
 }
 
-export const { getCurrentProfile } = new ProfileService();
+export const { getCurrentProfile, updateCurrentProfile } = new ProfileService();
