@@ -3,6 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.infrastructure.database.models.user import User
+from backend.infrastructure.database.models.vacancy import Company
+
 
 async def init_tables(session: AsyncSession):
     exist = await session.execute(select(User).where(User.is_admin == True))
@@ -16,5 +18,15 @@ async def init_tables(session: AsyncSession):
         password=context.hash("admin"),
         is_admin=True,
     )
-    session.add(user)
+
+    company = Company(
+        id="vtb-company",
+        name="ВТБ",
+        icon_url="https://storage.yandexcloud.net/mago-storage/users/3/image/vtb (3).png",
+        site_url="https://www.vtb.ru",
+        industry="FinTech",
+    )
+
+    session.add_all([user, company])
+    
     await session.commit()

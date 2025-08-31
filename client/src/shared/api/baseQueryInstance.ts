@@ -1,4 +1,4 @@
-import { deleteAccessToken, getAccessToken } from "@/entities";
+import { refresh } from "@/entities/auth/api/authService";
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
@@ -22,20 +22,45 @@ export class AxiosClient {
     this.baseQueryV1Instance = axios.create(config);
 
     if (withAuth) {
-      this.addAuthInterceptor();
+      this.addAuthResponseInterceptor();
     }
   }
 
-  private addAuthInterceptor() {
-    this.baseQueryV1Instance.interceptors.request.use((config) => {
-      const token = getAccessToken();
-      if (config && config.headers && token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
-      } else {
-        deleteAccessToken();
+  public addAuthResponseInterceptor() {
+    let isRefreshing = false;
+    this.baseQueryV1Instance.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          if (isRefreshing) {
+            await new Promise((resolve) => {
+              const interval = setInterval(() => {
+                if (!isRefreshing) {
+                  clearInterval(interval);
+                  resolve("");
+                }
+              }, 100);
+            });
+          }
+
+          isRefreshing = true;
+
+          try {
+            await refresh();
+            isRefreshing = false;
+            return this.baseQueryV1Instance(originalRequest);
+          } catch (error) {
+            isRefreshing = false;
+            return Promise.reject(error);
+          }
+        }
+
+        return Promise.reject(error);
       }
-      return config;
-    });
+    );
   }
 
   private handleResponse<T>(response: AxiosResponse<T>): AxiosResponse<T> {

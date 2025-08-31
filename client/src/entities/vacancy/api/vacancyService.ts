@@ -1,13 +1,13 @@
-import { Vacancy, VacancyFilter } from "../types/types";
-import { mockVacancies } from "../lib/mockVacancy";
+import { CreateVacancyDto, Vacancy, VacancyFilter } from "../types/types";
+import { axiosAuth } from "@/shared/api/baseQueryInstance";
 
 class VacancyService {
   public async getAllVacancy(
-    _: Partial<VacancyFilter> | null
+    filters: Partial<VacancyFilter> | null
   ): Promise<Array<Vacancy>> {
-    return new Promise((resolve) => {
-      resolve(mockVacancies);
-    });
+    const { data } = await axiosAuth.get<Array<Vacancy>>("/client/vacancy", {});
+
+    return data;
   }
 
   public async getVacancyById({
@@ -15,11 +15,21 @@ class VacancyService {
   }: {
     vacancyId: string;
   }): Promise<Vacancy | null> {
-    return new Promise((resolve) => {
-      const vacancy = mockVacancies.find((vac) => vac.id === vacancyId);
-      resolve(vacancy || null);
+    const { data } = await axiosAuth.get<Vacancy>(
+      `/client/vacancy/${vacancyId}`
+    );
+
+    return data;
+  }
+
+  public async createVacancy(vacancyData: CreateVacancyDto): Promise<Vacancy> {
+    const { data } = await axiosAuth.post<Vacancy>("/client/vacancy", {
+      ...vacancyData,
     });
+
+    return data;
   }
 }
 
-export const { getAllVacancy, getVacancyById } = new VacancyService();
+export const { getAllVacancy, getVacancyById, createVacancy } =
+  new VacancyService();

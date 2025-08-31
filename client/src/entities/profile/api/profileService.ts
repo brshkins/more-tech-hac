@@ -1,17 +1,15 @@
-import { axiosNoAuth } from "@/shared/api/baseQueryInstance";
+import { axiosAuth } from "@/shared/api/baseQueryInstance";
 import { Profile } from "../types/types";
 
 class ProfileService {
   public async getCurrentProfile(): Promise<Profile> {
-    const { data } = await axiosNoAuth.get<Profile>(
-      "/client/auth/current_user"
-    );
+    const { data } = await axiosAuth.get<Profile>("/client/auth/current_user");
 
     return data;
   }
 
   public async updateCurrentProfile({ form }: { form: FormData }) {
-    return await axiosNoAuth.put(
+    return await axiosAuth.put(
       "/client/user",
       form as unknown as Record<string, unknown>,
       {

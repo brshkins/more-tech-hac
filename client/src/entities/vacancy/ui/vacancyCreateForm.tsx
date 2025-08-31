@@ -12,8 +12,10 @@ import {
   VacancyFormData,
   VacancyFormSchema,
 } from "../lib/schemes/createFormSchema";
+import { useCreateVacancy } from "../hooks/useCreateVacancy";
 
 export const VacancyCreateForm = () => {
+  const { mutate: createVacancy } = useCreateVacancy();
   const form = useForm<VacancyFormData>({
     resolver: zodResolver(VacancyFormSchema),
     defaultValues: {
@@ -73,6 +75,7 @@ export const VacancyCreateForm = () => {
 
   const onSubmit = (data: VacancyFormData) => {
     console.log("Form submitted:", data);
+    // createVacancy({company_id: data.company.});
     form.reset();
   };
 

@@ -11,6 +11,17 @@ export interface VacancySection {
   description: string[];
 }
 
+export interface CreateVacancyDto {
+  company_id: string;
+  region: string;
+  post: string;
+  salary: string;
+  tags: string[];
+  is_favorite: boolean;
+  responsibilities: VacancySection;
+  requirements: VacancySection;
+}
+
 export interface Vacancy {
   id: string;
   company: Company;

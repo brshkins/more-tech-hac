@@ -57,7 +57,6 @@ export const ProfileInfoDrawer = () => {
     const formData = new FormData();
     formData.append("username", `${data.firstName} ${data.lastName}`);
     if (data.photoFile) {
-      console.log(data.photoFile);
       formData.append("image_url", data.photoFile);
     }
     updateProfile({ form: formData });

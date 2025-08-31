@@ -3,7 +3,7 @@ from uuid import uuid4
 from fastapi import UploadFile
 from aiobotocore.session import AioSession
 from aiobotocore.client import AioBaseClient
-
+from urllib.parse import urljoin
 from backend.infrastructure.config.loads import AWS_STORAGE_CONFIG
 
 
@@ -23,7 +23,7 @@ class AWSClient:
         ) as client:
             return client
     
-    async def upload_one_file(self, file: UploadFile, path: str):
+    async def upload_one_file(self, file: UploadFile, path: str) -> str:
         session = AioSession()
         async with session.create_client(
             "s3",
@@ -37,6 +37,12 @@ class AWSClient:
                 Body=await file.read(),
                 Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME,
             )
+    
+        file_url = urljoin(
+            f"{AWS_STORAGE_CONFIG.AWS_ENDPOINT_URL}/{AWS_STORAGE_CONFIG.AWS_BUCKET_NAME}/",
+            path
+        )
+        return file_url
 
     async def delete_one_file(self, path: str):
         await self.client.delete_object(Bucket=AWS_STORAGE_CONFIG.AWS_BUCKET_NAME, Key=path)

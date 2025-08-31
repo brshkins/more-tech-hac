@@ -30,13 +30,20 @@ class UserService(DbModelServiceInterface[User]):
             raise UserAlreadyExists()
         cv_file_url = None
         if form.cv_file:
-            await self.aws_client.upload_one_file(form.cv_file, f"users/{user.id}/cv_file/")
-            cv_file_url = f"users/{user.id}/cv_file/"
+           filename = form.cv_file.filename
+           cv_file_url = await self.aws_client.upload_one_file(
+                  form.cv_file,
+                  f"users/{user.id}/cv_file/{filename}"
+    )
         image_url = None
         if form.image_url:
-            await self.aws_client.upload_one_file(form.image_url, f"users/{user.id}/image/")
-            image_url = f"users/{user.id}/image/" 
-
+           filename = form.image_url.filename
+           await self.aws_client.upload_one_file(
+                form.image_url,
+                f"users/{user.id}/image/{filename}"
+           )
+           image_url = f"users/{user.id}/image/{filename}"
+           
         update_data = form.model_dump()
         if cv_file_url is not None:
             update_data["cv_file"] = cv_file_url

@@ -29,7 +29,7 @@ class AuthService {
   }
 
   public async refresh(): Promise<string> {
-    const { data } = await axiosNoAuth.post<string>("client/auth/refresh");
+    const { data } = await axiosNoAuth.post<string>("/client/auth/refresh");
 
     return data;
   }
