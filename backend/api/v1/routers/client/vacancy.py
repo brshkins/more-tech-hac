@@ -60,7 +60,7 @@ async def get_vacancies(service: FromDishka[VacancyService] = Depends()):
 
 @router.get("/{vacancy_id}", response_model=VacancyDTO)
 @inject  
-async def get_vacancy(vacancy_id: str, service: FromDishka[VacancyService] = Depends()):
+async def get_vacancy(vacancy_id: int, service: FromDishka[VacancyService] = Depends()):
     vacancy = await service.get_vacancy(vacancy_id)
     if not vacancy:
         raise HTTPException(status_code=404, detail="Vacancy not found")

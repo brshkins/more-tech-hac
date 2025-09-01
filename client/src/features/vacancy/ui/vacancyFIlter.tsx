@@ -16,11 +16,11 @@ export const VacancyFIlter = () => {
     setOpenDrawer({ isOpen: true, type: EDrawerVariables.VACANCY_DRAWER });
 
   const handleSetVacancyFilter = () =>
-    setVacancyFilters({ isSuitable: !vacancyFilters?.isSuitable });
+    setVacancyFilters({ is_suitable: !vacancyFilters?.is_suitable });
 
   const filterLength = useMemo(() => {
     if (vacancyFilters) {
-      const { isSuitable, ...moreFilter } = vacancyFilters;
+      const { is_suitable, ...moreFilter } = vacancyFilters;
 
       return Object.values(moreFilter).length;
     }
@@ -35,7 +35,7 @@ export const VacancyFIlter = () => {
           <button
             className={cn(
               "bg-neutral-900 hover:bg-neutral-800 transition-colors cursor-pointer px-2 py-2 rounded-xl",
-              vacancyFilters?.isSuitable && "bg-[#3361EC] hover:bg-blue-700"
+              vacancyFilters?.is_suitable && "bg-[#3361EC] hover:bg-blue-700"
             )}
             onClick={handleSetVacancyFilter}
           >
@@ -56,7 +56,7 @@ export const VacancyFIlter = () => {
       </section>
 
       <AnimatePresence initial={false}>
-        {vacancyFilters?.isSuitable && (
+        {vacancyFilters?.is_suitable && (
           <motion.div
             key="magic-banner"
             initial={{ opacity: 0, y: 8, height: 0 }}

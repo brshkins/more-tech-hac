@@ -23,7 +23,7 @@ export interface CreateVacancyDto {
 }
 
 export interface Vacancy {
-  id: string;
+  id: number;
   company: Company;
   region: string;
   post: string;
@@ -40,7 +40,7 @@ export interface VacancyFilter {
    * true  – если соответствует параметрам профиля / предпочтениям
    * false – если не соответствует
    */
-  isSuitable: boolean;
+  is_suitable: boolean;
 
   /**
    * Формат работы

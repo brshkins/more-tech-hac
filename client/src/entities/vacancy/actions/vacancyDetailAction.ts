@@ -12,7 +12,7 @@ const getVacancyCachedById = ({
   vacancies: Array<Vacancy>;
   vacancyId: string;
 }) => {
-  return vacancies.find((vacancy) => vacancy.id === vacancyId);
+  return vacancies.find((vacancy) => vacancy.id === Number(vacancyId));
 };
 
 export const vacancyDetailAction = async ({
@@ -22,7 +22,6 @@ export const vacancyDetailAction = async ({
 
   const loadVacancy = async () => {
     const cached = queryClient.getQueryData<Vacancy[]>([VACANCY_ALL_QUERY]);
-
     if (cached) {
       return getVacancyCachedById({ vacancies: cached, vacancyId });
     }
@@ -31,7 +30,6 @@ export const vacancyDetailAction = async ({
   };
 
   const selectVacancy = await loadVacancy();
-
   if (!selectVacancy) {
     return redirect(`/${ERouteNames.DASHBOARD_ROUTE}`);
   }
