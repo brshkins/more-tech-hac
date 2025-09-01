@@ -19,7 +19,6 @@ export const VacancyCreateForm = () => {
   const form = useForm<VacancyFormData>({
     resolver: zodResolver(VacancyFormSchema),
     defaultValues: {
-      company: { name: "", iconUrl: "", industry: "", siteUrl: "" },
       region: "",
       post: "",
       salary: "",
@@ -74,14 +73,13 @@ export const VacancyCreateForm = () => {
   };
 
   const onSubmit = (data: VacancyFormData) => {
-    console.log("Form submitted:", data);
     createVacancy({
       company_id: "vtb-company",
       is_favorite: false,
       post: data.post,
       salary: data.salary,
       tags: data.tags,
-      region: "Москва",
+      region: data.region,
       requirements: {
         description: data.requirements.description,
         title: data.requirements.title ?? "Требования",
@@ -98,155 +96,6 @@ export const VacancyCreateForm = () => {
     <div>
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-zinc-300">
-              Информация о компании
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={control}
-                name="company.name"
-                render={({ field }) => (
-                  <FormItem className="relative gap-1">
-                    <FloatingLabelInput
-                      {...field}
-                      label="Название компании"
-                      className={cn(
-                        "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
-                        errors.company?.name && "border-red-700"
-                      )}
-                    />
-                    {errors.company?.name && (
-                      <span className="text-red-800 text-xs px-3">
-                        {errors.company.name.message}
-                      </span>
-                    )}
-                    {field.value && !errors.company?.name && (
-                      <button
-                        className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
-                        onClick={() => field.onChange("")}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                    {errors.company?.name && (
-                      <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
-                        <CircleAlert className="w-4 h-4" />
-                      </button>
-                    )}
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="company.iconUrl"
-                render={({ field }) => (
-                  <FormItem className="relative gap-1">
-                    <FloatingLabelInput
-                      {...field}
-                      label="Иконка"
-                      className={cn(
-                        "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
-                        errors.company?.iconUrl && "border-red-700"
-                      )}
-                    />
-                    {errors.company?.iconUrl && (
-                      <span className="text-red-800 text-xs px-3">
-                        {errors.company.iconUrl.message}
-                      </span>
-                    )}
-                    {field.value && !errors.company?.iconUrl && (
-                      <button
-                        className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
-                        onClick={() => field.onChange("")}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                    {errors.company?.iconUrl && (
-                      <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
-                        <CircleAlert className="w-4 h-4" />
-                      </button>
-                    )}
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="company.industry"
-                render={({ field }) => (
-                  <FormItem className="relative gap-1">
-                    <FloatingLabelInput
-                      {...field}
-                      label="Индустрия"
-                      className={cn(
-                        "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
-                        errors.company?.industry && "border-red-700"
-                      )}
-                    />
-                    {errors.company?.industry && (
-                      <span className="text-red-800 text-xs px-3">
-                        {errors.company.industry.message}
-                      </span>
-                    )}
-                    {field.value && !errors.company?.industry && (
-                      <button
-                        className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
-                        onClick={() => field.onChange("")}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                    {errors.company?.industry && (
-                      <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
-                        <CircleAlert className="w-4 h-4" />
-                      </button>
-                    )}
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="company.siteUrl"
-                render={({ field }) => (
-                  <FormItem className="relative gap-1 md:col-span-2">
-                    <FloatingLabelInput
-                      {...field}
-                      label="Ссылка на сайт"
-                      className={cn(
-                        "py-1.5 text-white bg-neutral-900 rounded-xl shadow-sm border-neutral-900",
-                        errors.company?.siteUrl && "border-red-700"
-                      )}
-                    />
-                    {errors.company?.siteUrl && (
-                      <span className="text-red-800 text-xs px-3">
-                        {errors.company.siteUrl.message}
-                      </span>
-                    )}
-                    {field.value && !errors.company?.siteUrl && (
-                      <button
-                        className="absolute right-4 top-4.5 text-blue-800 cursor-pointer"
-                        onClick={() => field.onChange("")}
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    )}
-                    {errors.company?.siteUrl && (
-                      <button className="absolute right-4 top-4.5 text-red-800 cursor-pointer">
-                        <CircleAlert className="w-4 h-4" />
-                      </button>
-                    )}
-                  </FormItem>
-                )}
-              />
-            </div>
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
