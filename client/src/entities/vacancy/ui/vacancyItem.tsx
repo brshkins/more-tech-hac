@@ -16,7 +16,7 @@ export const VacancyItem = ({ vacancy, onNavigate }: VacancyItemProps) => {
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2">
           <Image
-            src={vacancy.company.iconUrl}
+            src={vacancy.company.icon_url}
             alt={vacancy.company.name}
             width={20}
             height={20}

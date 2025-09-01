@@ -57,7 +57,7 @@ const VacancyPage = () => {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-3">
               <Image
-                src={vacancy.company.iconUrl}
+                src={vacancy.company.icon_url}
                 alt={vacancy.company.name}
                 width={40}
                 height={40}
@@ -73,7 +73,7 @@ const VacancyPage = () => {
               </div>
             </div>
           </div>
-          <Link to={vacancy.company.siteUrl} target="_blank">
+          <Link to={vacancy.company.site_url} target="_blank">
             <IconButton
               ariaLabel="Открыть сайт"
               className="bg-zinc-800 hover:bg-neutral-700"

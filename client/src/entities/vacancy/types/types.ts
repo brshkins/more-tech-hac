@@ -1,9 +1,9 @@
 export interface Company {
   id: string;
   name: string;
-  iconUrl: string;
+  icon_url: string;
   industry: string;
-  siteUrl: string;
+  site_url: string;
 }
 
 export interface VacancySection {
