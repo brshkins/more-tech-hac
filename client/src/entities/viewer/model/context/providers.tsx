@@ -3,14 +3,9 @@ import {
   FC,
   PropsWithChildren,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import {
-  deleteAccessToken,
-  getAccessToken,
-  setAccessToken,
-} from "@/entities/token";
+import { deleteAccessToken, setAccessToken } from "@/entities/token";
 import { IViewerHandler, IViewerState } from "./types";
 
 const ViewerContext = createContext<IViewerState & IViewerHandler>({
@@ -43,16 +38,6 @@ export const ViewerProvider: FC<PropsWithChildren> = ({ children }) => {
     });
     deleteAccessToken();
   };
-
-  useEffect(() => {
-    const token = getAccessToken();
-    if (token) {
-      setViewer({
-        isAuthenticated: true,
-        accessToken: token,
-      });
-    }
-  }, []);
 
   return (
     <ViewerContext.Provider
